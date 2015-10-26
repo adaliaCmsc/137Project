@@ -6,6 +6,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
+import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -34,7 +35,9 @@ public class ServerGUI {
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				ChatReceiver chatServer = new ChatReceiver();
+				ArrayList<String> ip = new ArrayList<String>();
+				ip.add("192.168.1.1");
+				ChatReceiver chatServer = new ChatReceiver(ip);
 				chatServer.start();
 				try {
 					String currentIP = InetAddress.getLocalHost().toString().split("/")[1];

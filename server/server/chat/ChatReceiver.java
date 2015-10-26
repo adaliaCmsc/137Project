@@ -38,8 +38,10 @@ public class ChatReceiver extends Thread{
 					System.out.println(receivingIP + ": " + line);
 					
 					// Transmits the data back to the client
-					ChatTransmitter transmitter = new ChatTransmitter(null, line, receivingIP);
-					transmitter.start();
+					for(String ip : this.ip){
+						ChatTransmitter transmitter = new ChatTransmitter(null, line, ip);
+						transmitter.start();
+					}
 				}
 				else{
 					System.out.println("Connection with " + receivingIP + " has been terminated!");

@@ -36,7 +36,8 @@ public class ServerGUI {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				ArrayList<String> ip = new ArrayList<String>();
-				ip.add("192.168.1.1");
+				ip.add("192.168.1.2");
+				ip.add("192.168.1.3");
 				ChatReceiver chatServer = new ChatReceiver(ip);
 				chatServer.start();
 				try {

@@ -6,6 +6,7 @@ import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -16,14 +17,17 @@ import javax.swing.border.EmptyBorder;
 
 import game.network.Listener;
 import game.network.Transmitter;
+import game.sprites.Sprite;
+import game.sprites.SpriteListener;
 
 public class GameGUI implements WritableGUI{
 	final JTextArea chatArea = new JTextArea();
 	final JTextArea chatFeed = new JTextArea();
 
-	JFrame mainFrame = new JFrame("COC v1");
+	JFrame mainFrame = new JFrame("COC");
 	JPanel mainPanel = new JPanel(new BorderLayout());
-	JPanel gamePanel = new JPanel();
+	public static JPanel gamePanel = new JPanel(null);
+	public static ArrayList <Sprite> sprites = new ArrayList<Sprite>();
 	JPanel sidePanel = new JPanel(new BorderLayout());		
 	JPanel chatPanel = new JPanel(new BorderLayout());
 	JPanel spritePanel = new JPanel(new GridLayout(7,3,2,2));
@@ -36,19 +40,19 @@ public class GameGUI implements WritableGUI{
 		Color themeColor = new Color(102, 204, 153);
 		chatPanel.setBackground(Color.YELLOW);
 		spritePanel.setBackground(themeColor);
-		gamePanel.setBackground(Color.BLUE);
+		gamePanel.setBackground(Color.GREEN);
 		sidePanel.setBackground(Color.RED);
 		
-		JButton [] sprites = new JButton[21];
+		JButton [] spritesSelector = new JButton[21];
 		for(int i = 0; i < 21; i++){
-			sprites[i] = new JButton(""+i);
-			spritePanel.add(sprites[i]);
+			spritesSelector[i] = new JButton(""+i);
+			spritePanel.add(spritesSelector[i]);
 		}
 		spritePanel.setPreferredSize(new Dimension(200,280));
 		spritePanel.setBorder(new EmptyBorder(10, 10, 10, 10));
 		JScrollPane chatAreaPane = new JScrollPane(chatArea);
 		JScrollPane chatFeedPane = new JScrollPane(chatFeed);
-	
+		
 		Listener listener;
 		listener = new Listener(this, 4422);
 		listener.start();
@@ -57,13 +61,10 @@ public class GameGUI implements WritableGUI{
 		chatFeed.setLineWrap(true);
 		chatFeed.setEditable(false);
 		chatArea.setLineWrap(true);
-		
+		gamePanel.addMouseListener(new SpriteListener());
 		chatArea.addKeyListener(new KeyListener(){
 			@Override
 			public void keyTyped(KeyEvent e){}
-			
-			@Override
-			public void keyPressed(KeyEvent e) {}
 			
 			@Override
 			public void keyReleased(KeyEvent e) {
@@ -79,6 +80,8 @@ public class GameGUI implements WritableGUI{
 					chatArea.setText("");
 				}
 			}
+			@Override
+			public void keyPressed(KeyEvent arg0) {}
 		});
 		
 		chatPanel.add(chatFeedPane, BorderLayout.CENTER);

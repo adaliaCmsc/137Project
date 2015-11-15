@@ -9,9 +9,9 @@ import java.util.ArrayList;
 
 public class ChatReceiver extends Thread{
 	ServerSocket server;
-	ArrayList<String> ip;
+	String ip;
 	
-	public ChatReceiver(ArrayList<String> ip){
+	public ChatReceiver(String ip){
 		try {
 			this.server = new ServerSocket(4422);
 			this.ip = ip;
@@ -38,14 +38,11 @@ public class ChatReceiver extends Thread{
 					System.out.println(receivingIP + ": " + line);
 					
 					// Transmits the data back to the client
-					for(String ip : this.ip){
-						ChatTransmitter transmitter = new ChatTransmitter(null, line, ip);
+						ChatTransmitter transmitter = new ChatTransmitter(null, line, this.ip);
 						transmitter.start();
-					}
 				}
 				else{
 					System.out.println("Connection with " + receivingIP + " has been terminated!");
-					ip.remove(receivingIP);
 				}
 			}
 		} catch (IOException e) {

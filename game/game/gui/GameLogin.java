@@ -9,6 +9,7 @@ import java.awt.event.ActionListener;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -23,76 +24,51 @@ public class GameLogin {
 	Map<String, String> data = new HashMap<String, String>();
 	
 	public void initialize(){
-		JPanel contentPane = new JPanel(new BorderLayout()); 
-		Color themeColor = new Color(102, 204, 153);
+		JPanel contentPane = new JPanel(null); 
 		
-		contentPane.setBackground(themeColor);
+		JLabel background = new JLabel();
+		background.setIcon(new ImageIcon("src/images/bg.jpg"));
+		background.setVisible(true);
+		background.setHorizontalAlignment(SwingConstants.CENTER);
+		background.setBounds(0, 0, 640, 480);
+		
+		JLabel title = new JLabel(new ImageIcon("src/images/login.png"));
+		title.setBounds(15, 80, 620, 400);
+		contentPane.add(title);
+		contentPane.add(background);
+		contentPane.setOpaque(false);
 		contentPane.setBorder(new EmptyBorder(120, 100, 190, 100));
 		contentPane.setPreferredSize(new Dimension(640, 480));
 		
-		JLabel title = new JLabel("-- COC v1 | GAME LOGIN --");
-		title.setHorizontalAlignment(SwingConstants.CENTER);
-		title.setFont(new Font("Tahoma", Font.PLAIN, 32));
-		contentPane.add(title, BorderLayout.PAGE_START);
+		final JTextField textField = new JTextField();
+		textField.setBounds(65,275,225,30);
+		textField.setFont(new Font("Arial", Font.PLAIN, 28));
+		contentPane.add(textField);
 		
-		JPanel panel = new JPanel(new BorderLayout());
-		panel.setOpaque(false);
+		final JPasswordField passwordField = new JPasswordField();
+		passwordField.setBounds(350,275,225,30);
+		passwordField.setFont(new Font("Arial", Font.PLAIN, 28));
+		contentPane.add(passwordField);
 		
-		JPanel usernamePanel = new JPanel(new BorderLayout());
-		JPanel passwordPanel = new JPanel(new BorderLayout());
-		
-		final JTextField username = new JTextField();
-		username.setBackground(new Color(255, 255, 255));
-		username.setHorizontalAlignment(SwingConstants.CENTER);
-		username.setToolTipText("Username\r\n");
-		
-		JLabel usernameTitle = new JLabel("Username");
-		usernameTitle.setHorizontalAlignment(SwingConstants.CENTER);
-		
-		usernamePanel.setOpaque(false);
-		usernamePanel.setPreferredSize(new Dimension(220,10));
-		usernamePanel.setBorder(new EmptyBorder(20,0,20,0));
-		usernamePanel.add(usernameTitle, BorderLayout.PAGE_START);
-		usernamePanel.add(username, BorderLayout.CENTER);
-		
-		panel.add(usernamePanel, BorderLayout.WEST);
-		
-		final JPasswordField password = new JPasswordField();
-		password.setHorizontalAlignment(SwingConstants.CENTER);
-		password.setBackground(new Color(255, 255, 255));
-		password.setToolTipText("Password\r\n");
-		
-		JLabel passwordTitle = new JLabel("Password");
-		passwordTitle.setHorizontalAlignment(SwingConstants.CENTER);
-		
-		passwordPanel.setOpaque(false);
-		passwordPanel.setPreferredSize(new Dimension(220,10));
-		passwordPanel.setBorder(new EmptyBorder(20,0,20,0));
-		passwordPanel.add(password, BorderLayout.CENTER);
-		passwordPanel.add(passwordTitle, BorderLayout.PAGE_START);
-		
-		panel.add(passwordPanel, BorderLayout.EAST);
-		
-		JButton login = new JButton("LOGIN");
-		login.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		login.setBackground(new Color(102, 204, 153));
-		login.addActionListener(new ActionListener(){
+		final JButton loginButton = new JButton(new ImageIcon("src/images/loginbutton.png"));
+		loginButton.setFocusPainted(false);
+		loginButton.setBounds(250,350,150,50);
+		contentPane.add(loginButton);
+		loginButton.addActionListener(new ActionListener(){
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				frame.dispose();
-				data.put("username", username.getText());
-				data.put("password", password.getText());
+				data.put("username", textField.getText());
+				data.put("password", passwordField.getText());
 				GameGUI gui1 = new GameGUI();
 			}
 			
 		});
-		
-		contentPane.add(panel, BorderLayout.CENTER);
-		contentPane.add(login, BorderLayout.PAGE_END);
+		frame.setResizable(false);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.add(contentPane);
-		frame.setVisible(true);
 		frame.pack();
+		frame.setVisible(true);
 	}
 }

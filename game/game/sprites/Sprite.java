@@ -26,7 +26,8 @@ public class Sprite extends Thread{
 	
 	JLabel container = new JLabel();
 	
-	public Sprite(int xBound, int yBound, int index, int playerid){
+	public Sprite(int xBound, int yBound, int index, int playerid, int kind){
+		this.setAttributes(kind);
 		this.index = index;
 		this.xBound = xBound;
 		this.yBound = yBound;
@@ -35,18 +36,59 @@ public class Sprite extends Thread{
 		initialize();
 	}
 	
+	public void setAttributes(int kind){
+		if(kind == 0){
+			life = 200;
+			armor = 5;
+			attack = 10;
+			attackSpeed = 0.6;
+		}
+		else if(kind == 1){
+			life = 100;
+			armor = 1;
+			attack = 3;
+			attackSpeed = 1.0;
+		}
+		else if(kind == 2){
+			life = 150;
+			armor = 3;
+			attack = 10;
+			attackSpeed = 0.8;
+		}
+		else if(kind == 3){
+			life = 50;
+			armor = 5;
+			attack = 25;
+			attackSpeed = 1.2;
+		}
+		else if(kind == 4){
+			life = 500;
+			armor = 10;
+			attack = 20;
+			attackSpeed = 1.5;
+		}
+		else if(kind == 5){
+			life = 250;
+			armor = 30;
+			attack = 50;
+			attackSpeed = 0.6;
+		}
+	}
+	
 	public void initialize(){
 		this.container.setText(Integer.toString(this.life));
 		this.container.setVerticalAlignment(SwingConstants.CENTER);
 		this.container.setHorizontalAlignment(SwingConstants.CENTER);
 		this.container.setBounds(this.xBound, this.yBound, this.width, this.height);
 		if(this.playerid == 0) this.container.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-		else this.container.setBorder(BorderFactory.createLineBorder(Color.WHITE));
+		else this.container.setBorder(BorderFactory.createLineBorder(Color.RED));
 		GameGUI.gamePanel.add(this.container);
 	}
 	
 	public void attack(){
-		this.life -= (this.attack-this.armor);
+		if(this.attack-this.armor > 0){
+			this.life -= (this.attack-this.armor);
+		}
 	}
 	
 	public int getClosestSprite(){
@@ -134,14 +176,12 @@ public class Sprite extends Thread{
 							trail.attack();
 							trail.container.setText(Integer.toString(trail.life));
 							if(trail.life <= 0){
-								System.out.println("You have won!");
 								trail.container.setText("H");
 								Thread.sleep(500);
 								trail.container.setVisible(false);
 								break;
 							}
 							if(this.life <= 0){
-								System.out.println("Opponent won!");
 								break;
 							}
 							Thread.sleep((int)(this.attackSpeed*1000));

@@ -15,10 +15,10 @@ public class SpriteListener implements MouseListener{
 		
 		Sprite sprite;
 		if(arg0.isControlDown()){
-			sprite = new Sprite(x, y, GameGUI.sprites.size(), 0);
+			sprite = new Sprite(x, y, GameGUI.sprites.size(), 0, 0);
 		}
 		else{
-			sprite = new Sprite(x, y, GameGUI.sprites.size(), 1);
+			sprite = new Sprite(x, y, GameGUI.sprites.size(), 1, 0);
 		}
 		GameGUI.sprites.add(sprite);
 		GameGUI.gamePanel.revalidate();

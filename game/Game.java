@@ -6,5 +6,4 @@ public class Game {
 		GameLogin login = new GameLogin();
 		login.initialize();
 	}
-
 }

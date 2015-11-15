@@ -5,19 +5,19 @@ import java.net.Socket;
 import java.util.HashMap;
 
 public class Transmitter extends Thread{
-	HashMap<String, String> data;
 	String message;
 	String hostname;
 	int port;
 	
-	public Transmitter(HashMap<String, String> data, String message, String hostname, int port){
-		this.data = data;
+	public Transmitter(String message, String hostname, int port){
 		this.message = message;
 		this.hostname = hostname;
 		this.port = port;
 	}
 	
-	public Transmitter(){
+	public Transmitter(String hostname, int port){
+		this.hostname = hostname;
+		this.port = port;
 	}
 	
 	@Override

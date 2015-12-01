@@ -3,10 +3,12 @@ package game.sprites;
 import java.awt.Color;
 
 import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 
 import game.gui.GameGUI;
+
 
 public class Sprite extends Thread{
 	int index; // Index of the sprite in the container
@@ -76,12 +78,16 @@ public class Sprite extends Thread{
 	}
 	
 	public void initialize(){
-		this.container.setText(Integer.toString(this.life));
+		//this.container.setText(Integer.toString(this.life));
 		this.container.setVerticalAlignment(SwingConstants.CENTER);
 		this.container.setHorizontalAlignment(SwingConstants.CENTER);
 		this.container.setBounds(this.xBound, this.yBound, this.width, this.height);
 		if(this.playerid == 0) this.container.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-		else this.container.setBorder(BorderFactory.createLineBorder(Color.RED));
+		else{ //this.container.setBorder(BorderFactory.createLineBorder(Color.RED));
+			ImageIcon icon = new ImageIcon("src/sprites/zero/swordslash_left/1.png");
+			this.container.setIcon(icon);
+			this.container.setSize(icon.getImage().getWidth(null), icon.getImage().getHeight(null));
+		}
 		GameGUI.gamePanel.add(this.container);
 	}
 	
@@ -144,10 +150,10 @@ public class Sprite extends Thread{
 				double distance = Math.sqrt(((this.xBound - trailx)*(this.xBound - trailx)) - ((this.yBound - traily)*(this.yBound - traily)));
 				// Moves the sprites if an enemy sprite has been found.
 				if(trail.playerid != this.playerid){
-					if(this.xBound < trailx - width) this.xBound += increment;
-					if(this.xBound > trailx + width) this.xBound -= increment;
-					if(this.yBound < traily - height) this.yBound += increment;
-					if(this.yBound > traily + height) this.yBound -= increment;
+					if(this.xBound < trailx - width){ this.xBound += increment; container.setIcon(new ImageIcon("src/sprites/zero/swordslash_right/1.png"));}
+					if(this.xBound > trailx + width){ this.xBound -= increment; container.setIcon(new ImageIcon("src/sprites/zero/swordslash_left/1.png"));}
+					if(this.yBound < traily - height){ this.yBound += increment; container.setIcon(new ImageIcon("src/sprites/zero/swordslash_right/1.png"));}
+					if(this.yBound > traily + height){ this.yBound -= increment; container.setIcon(new ImageIcon("src/sprites/zero/swordslash_left/1.png"));}
 				}
 				container.setBounds(xBound, yBound, width, height);
 				// Finds the next closest sprite. This can be the same sprite or a new target
@@ -174,9 +180,20 @@ public class Sprite extends Thread{
 						try {
 							System.out.println("[" + this.playerid + "] Life: " + trail.life);
 							trail.attack();
-							trail.container.setText(Integer.toString(trail.life));
+							//trail.container.setText(Integer.toString(trail.life));
+							ImageIcon i = new ImageIcon("src/sprites/zero/swordslash_right/1.png");
+							ImageIcon j = new ImageIcon("src/sprites/zero/swordslash_left/1.png");
+							
+							if(trail.container.getIcon().toString() == i.toString()){
+								trail.container.setIcon(new ImageIcon("src/sprites/zero/swordslash_right/6copy.png"));
+							}
+							
+							else if(trail.container.getIcon().toString() == j.toString()){
+								trail.container.setIcon(new ImageIcon("src/sprites/zero/swordslash_left/6copy.png"));
+							}
+							
 							if(trail.life <= 0){
-								trail.container.setText("H");
+								//trail.container.setText("H");
 								Thread.sleep(500);
 								trail.container.setVisible(false);
 								break;
@@ -189,6 +206,18 @@ public class Sprite extends Thread{
 							e.printStackTrace();
 						}
 					}
+					
+					ImageIcon k = new ImageIcon("src/sprites/zero/swordslash_right/6copy.png");
+					ImageIcon l = new ImageIcon("src/sprites/zero/swordslash_left/6copy.png");
+					
+					if(trail.container.getIcon().toString() == k.toString()){
+						trail.container.setIcon(new ImageIcon("src/sprites/zero/swordslash_right/1.png"));
+					}
+					
+					else if(trail.container.getIcon().toString() == l.toString()){
+						trail.container.setIcon(new ImageIcon("src/sprites/zero/swordslash_left/1.png"));
+					}
+					
 					if(this.life <= 0) break;
 				}
 				/*

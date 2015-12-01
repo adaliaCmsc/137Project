@@ -2,7 +2,6 @@ package game.network;
 
 import java.io.IOException;
 import java.net.Socket;
-import java.util.HashMap;
 
 public class Transmitter extends Thread{
 	String message;

@@ -1,7 +1,5 @@
 package game.gui;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
@@ -56,11 +54,13 @@ public class GameLogin {
 		contentPane.add(loginButton);
 		loginButton.addActionListener(new ActionListener(){
 
+			@SuppressWarnings("deprecation")
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				frame.dispose();
 				data.put("username", textField.getText());
 				data.put("password", passwordField.getText());
+				@SuppressWarnings("unused")
 				GameGUI gui1 = new GameGUI();
 			}
 			

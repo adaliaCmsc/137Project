@@ -9,6 +9,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+@SuppressWarnings("serial")
 public class Zero extends JPanel{
 	
 	final JPanel mainPanel = new JPanel(new CardLayout());

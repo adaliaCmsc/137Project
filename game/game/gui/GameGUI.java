@@ -3,7 +3,9 @@ package game.gui;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Graphics;
 import java.awt.GridLayout;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -11,6 +13,7 @@ import java.awt.event.KeyListener;
 import java.util.ArrayList;
 import java.util.Random;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -18,6 +21,8 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.border.EmptyBorder;
+
+import org.omg.CORBA.PUBLIC_MEMBER;
 
 import game.network.Listener;
 import game.network.Transmitter;
@@ -59,7 +64,7 @@ public class GameGUI implements WritableGUI{
 		final Random random = new Random();
 		chatPanel.setBackground(Color.YELLOW);
 		spritePanel.setBackground(themeColor);
-		gamePanel.setBackground(Color.WHITE);
+		//gamePanel.setBackground(Color.WHITE);
 		sidePanel.setBackground(Color.RED);
 		
 		

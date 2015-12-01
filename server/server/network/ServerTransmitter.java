@@ -19,7 +19,7 @@ public class ServerTransmitter extends Thread{
 		try{
 			Socket socket = new Socket(hostname, port);
 			String receivingIP = socket.getInetAddress().toString().split("/")[1];
-				message = receivingIP + ": " + message;
+				message = "[" + receivingIP + "]: " + message;
 				socket.getOutputStream().write(message.getBytes());
 				socket.close();
 		} catch (IOException e){
